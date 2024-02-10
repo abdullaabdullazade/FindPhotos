@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<!--Abdulla Abdullazadə-->
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+
+        }
+
+        body {
+            margin-left: 550px;
+            background-color: goldenrod;
+        }
+
+        div {
+            width: 62px;
+            height: 62px;
+            margin-left: 3px;
+            border-radius: 62px;
+            background-color: red;
+            display: inline-block;
+        }
+
+        img {
+            width: 62px;
+            height: 62px;
+            border-radius: 62px;
+            display: inline;
+        }
+
+        h3 {
+            color: red;
+        }
+
+        h1 {
+            display: inline;
+        }
+
+        button {
+            margin-left: 20px;
+            border: 1px solid;
+            width: 120px;
+            height: 40px;
+            border-radius: 6px;
+        }
+
+        button:hover {
+            background-color: yellow;
+        }
+    </style>
+</head>
+
+<body>
+    <div onclick='main("1")' id="1">
+    </div>
+    <div onclick='main("2")' id="2"></div>
+    <div onclick='main("3")' id="3"></div>
+    <div onclick='main("4")' id="4"></div><br>
+    <div onclick='main("5")' id="5"></div>
+    <div onclick='main("6")' id="6"></div>
+    <div onclick='main("7")' id="7"></div>
+    <div onclick='main("8")' id="8"></div><br>
+    <div onclick='main("9")' id="9"></div>
+    <div onclick='main("10")' id="10"></div>
+    <div onclick='main("11")' id="11"></div>
+    <div onclick='main("12")' id="12"></div><br>
+    <div onclick='main("13")' id="13"></div>
+    <div onclick='main("14")' id="14"></div>
+    <div onclick='main("15")' id="15"></div>
+    <div onclick='main("16")' id="16"></div><br>
+    <div onclick='main("17")' id="17"></div>
+    <div onclick='main("18")' id="18"></div>
+    <div onclick='main("19")' id="19"></div>
+    <div onclick='main("20")' id="20"></div><br>
+    <div onclick='main("21")' id="21"></div>
+    <div onclick='main("22")' id="22"></div>
+    <div onclick='main("23")' id="23"></div>
+    <div onclick='main("24")' id="24"></div><br>
+    <div onclick='main("25")' id="25"></div>
+    <div onclick='main("26")' id="26"></div>
+    <div onclick='main("27")' id="27"></div>
+    <div onclick='main("28")' id="28"></div><br>
+    <div onclick='main("29")' id="29"></div>
+    <div onclick='main("30")' id="30"></div>
+    <div onclick='main("31")' id="31"></div>
+    <div onclick='main("32")' id="32"></div><br>
+    <h1>Score:0</h1>
+    <button>Bax</button>
+    <script>
+        let photosdict = ['csharpIcon.png', 'icon.png', 'logo.png', 'icon128.png', 'reactnative.png', 'npm.png', 'jupyter.png', 'java.png']
+        let photoslength = [0, 0, 0, 0, 0, 0, 0, 0]
+        let randomphoto = {}
+        let checkclick = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        for (var i = 1; i <= 32; i++) {
+            let random = Math.ceil(Math.random() * photosdict.length)
+            if (photoslength[random - 1] == 4) {
+                i -= 1
+                continue
+            } else {
+                randomphoto[i] = random
+                photoslength[random - 1] += 1
+            }
+        }
+        let checkphoto = ''
+        let winorlost = true
+        let score = 0
+        let time = 0
+        let health = 4
+        let ifstatement = true
+        function startgame() {
+            if (ifstatement) {
+                if (health != 0) {
+                    try {
+                        document.body.removeChild(document.querySelector('button'))
+
+                    } catch (error) {
+
+                    }
+                    const time_ = setTimeout(startgame, 1000)
+                    if (time == 5) {
+                        clearTimeout(time_)
+                        document.body.innerHTML = ''
+                        for (let i = 1; i <= 32; i++) {
+                            let creatediv = `<div id="${String(i)}" onclick='main("${i}")'></div>`
+                            document.body.innerHTML += creatediv
+                            if (i == 4 || i == 8 || i == 12 || i == 16 || i == 20 || i == 24 || i == 28 || i == 32) {
+                                document.body.innerHTML += '<br>'
+                            }
+                            if (checkclick[i - 1] != 0) {
+                                let img = `<img id=img${String(i)} src="` + photosdict[randomphoto[i] - 1] + '">'
+                                document.getElementById(String(i)).innerHTML += img
+                            }
+
+
+
+                        }
+                        document.body.innerHTML += `<h1>Score:${score}</h1>`
+                        document.body.innerHTML += '<button onclick="startgame()">Bax</button>'
+
+                        winorlost = true
+                        time = 0
+                        health -= 1 
+                        
+
+
+                    }
+                    else {
+                        for (let i = 1; i <= 32; i++) {
+                            if (checkclick[i - 1] != 0) {
+                                continue
+                            }
+                            let img = `<img id=img${String(i)} src="` + photosdict[randomphoto[i] - 1] + '">'
+                            document.getElementById(String(i)).innerHTML = img
+                        }
+                        winorlost = false
+                    }
+                    time += 1
+
+                } else {
+                    alert("NO HEALTH!")
+
+                }
+            } else {
+                alert('The End')
+            }
+        }
+
+
+        startgame()
+        let time2 = 0
+        function main(id) {
+            if (winorlost) {
+                if (checkclick[id - 1] == 0) {
+                    let img = `<img id=img${id} src="` + photosdict[randomphoto[id] - 1] + '">'
+                    if (checkphoto == '') {
+                        checkphoto = photosdict[randomphoto[id] - 1]
+                        document.getElementById(id).innerHTML = img
+                    } else {
+                        if (checkphoto != photosdict[randomphoto[id] - 1]) {
+                            document.getElementById(id).innerHTML = img
+                            document.body.innerHTML += '<h3>You lost!</h3>'
+                            for (let i = 1; i <= 32; i++) {
+                                let img = `<img id=img${String(i)} src="` + photosdict[randomphoto[i] - 1] + '">'
+                                document.getElementById(String(i)).innerHTML = img
+                            }
+                            ifstatement = false
+                            winorlost = false
+
+
+                        } else {
+                            if (score == 15) {
+                                document.getElementById(id).innerHTML = img
+                                document.body.innerHTML += '<h3>You win!</h3>'
+                                document.querySelector('h1').textContent = 'Score: 16'
+                                ifstatement = false
+                                winorlost = false
+                            } else {
+                                score += 1
+                                document.querySelector('h1').textContent = 'Score:' + score
+                                document.getElementById(id).innerHTML = img
+                                checkphoto = ''
+
+
+                            }
+
+
+
+                        }
+                    }
+                    checkclick[id - 1] += 1
+
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>
+
+<!--Abdulla Abdullazadə-->
